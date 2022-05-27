@@ -1,0 +1,90 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<h1>Book Store</h1>
+
+<form method="POST" asp-page-handler="BookCategory">
+     <list><h2>Book Categories </h2>
+     <ul type="disc">business</ul>
+     <ul type="disc">mod_cook</ul>
+     <ul type="disc">popular_comp</ul>
+     <ul type="disc">psycology</ul>
+     <ul type="disc">trad_cook</ul>
+     </list>
+    <input type="text" name="sortByCategory" Placeholder="Shop by Category...">
+    <input type="Submit" value="Search">
+
+
+    <div>
+     @if(Model.book_Overview.Count > 0){
+         
+         @for(int i = 0 ; i< Model.book_Overview.Count ; i++){
+             <h2>List of books on searched Category :</h2>
+        <h4>
+            <span><h3>Book Name:</h3>@Model.book_Name[i]</span>
+            <span><h3>Book Overview:</h3>@Model.book_Overview[i]</span>
+            
+        </h4>
+        }
+     }
+    else{
+          <h4>No Records found...</h4>
+        }
+     </div>
+
+ </form>
+
+
+
+
+<form method="POST" asp-page-handler="BookSearch">
+    <h2>Enter Bookname or term to find Price : </h2>
+    <input type="text" name="findBook" Placeholder="Enter Booksearch term...">
+    <input type="Submit" value="Price">
+ </form>
+ 
+ <div>
+     @if(Model.author_fname.Count > 0){
+        @for(int i = 0 ; i< Model.author_fname.Count ; i++){
+        <h4>
+            <span><h3>Book Name:</h3>@Model.book_Name[i]</span>
+            <span><h3>Author Name:</h3>@Model.author_fname[i],@Model.author_lname[i]</span>
+            <span><h3>Price:</h3>@Model.book_Price[i]</span><br>
+        </h4>
+        }
+     }
+    else{
+          <h4>No Records found...</h4>
+        }
+ </div>
+
+
+<form method="POST" asp-page-handler="SearchBook">
+     <h4>Search Book Name to update :</h4>
+    <input type="text" name="bookToSearch" placeholder="Type Book Name...">
+    <input type="submit" value="Search">
+</form>
+<div>
+@if(Model.title != null) {
+    <span><h5>Book Name:</h5>@Model.title</span>
+    <span><h5>Book Type:</h5>@Model.type</span>
+}else
+{
+<span>No Records...</span>
+}
+  </div> 
+
+
+ <div>
+ <h4>Enter Update Data :</h4>
+<form method="POST" asp-page-handler="updateB_Type">
+        <input type="text" name="update_bookName" value="@Model.bookType">
+        <input type="text" name="update_bookType" value="@Model.bookName">
+        <input type="submit" value="Update">
+        
+</form>
+</div> 
+
